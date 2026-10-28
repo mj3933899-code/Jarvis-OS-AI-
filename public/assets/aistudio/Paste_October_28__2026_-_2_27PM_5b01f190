@@ -1,0 +1,676 @@
+JARVIS ANDROID AI ASSISTANT
+
+EXISTING PROJECT UPGRADE — EXACT UI REFERENCES, 3D AVATAR, CURRENT GEMINI API MIGRATION, BACKGROUND SERVICE BUG FIXES AND VERIFIED ANDROID BUILD
+
+You are a senior Android engineer, Kotlin/Jetpack Compose developer, AI integration engineer, voice assistant engineer, 3D UI engineer, accessibility automation engineer, and QA/build engineer.
+
+Your task is to UPDATE MY EXISTING JARVIS ANDROID AI ASSISTANT PROJECT.
+
+This is not a request to create a new demo app, a static mockup, or an unrelated replacement project.
+
+You must inspect the supplied source project, preserve working features, fix the real bugs, integrate the two attached design reference images, update the Gemini API implementation to the currently supported official interface and models, repair background operation, and implement and verify the actual Android code wherever the provided tools and files allow.
+
+The required workflow is:
+
+EXISTING PROJECT AUDIT → ROOT-CAUSE ANALYSIS → TARGETED CODE FIXES → CURRENT GEMINI API MIGRATION → BACKGROUND/VOICE REPAIR → UI AND AVATAR IMPLEMENTATION → INTEGRATION TESTING → BUILD VERIFICATION → HONEST FINAL REPORT
+
+==================================================
+
+1. TWO ATTACHED IMAGES ARE THE REQUIRED UI REFERENCES
+   ==================================================
+
+Two reference images are attached to this task.
+
+REFERENCE IMAGE 1:
+The tall, dark-navy, blue-cyan JARVIS Android Assistant infographic showing the Home Page, Full Screen 3D View, Theme Options, the numbered feature categories, and the proposed app structure.
+
+REFERENCE IMAGE 2:
+The full-body anime-style assistant character with white/silver hair, cyan hair tips, cyan eyes, cat ears, a black hoodie with a cyan emblem, and a glowing cyan orb.
+
+Treat these images as the authoritative visual references for this project.
+
+Do not substitute a generic chatbot interface or an unrelated avatar.
+
+Reference Image 1: UI and feature requirements
+
+Preserve the following visual direction:
+
+- Dark navy or near-black background.
+- Electric blue and neon-cyan accents.
+- Glowing cyan borders and carefully controlled holographic effects.
+- Futuristic typography and readable technical labels.
+- Circular or holographic voice-core elements.
+- Clear, well-separated feature cards.
+- Modern Android navigation.
+- Responsive, vertically scrollable layouts.
+- Bengali-first interface with English technical terms.
+- Home Page Normal View and Full Screen Character View.
+- Light/Dark themes and appearance customization.
+- A settings screen for accent colors, character mode and background customization.
+
+The Home Page and Full Screen Character View must visually belong to the same application. The full-screen state must have a reliable close/back action and return to the previous state without losing the current conversation or assistant state.
+
+The reference image contains 21 feature categories. Preserve the entire 21-category feature plan. Normalize numbering to 1–21 if the artwork contains a duplicate or inconsistent numeral, but do not silently remove a feature category.
+
+Audit the existing project to identify which of these features already work, which are partial, and which are missing. Do not claim that a listed feature is implemented simply because it appears in the reference image.
+
+Reference Image 2: character requirements
+
+Use the attached character as the visual identity for JARVIS.
+
+Preserve these recognizable design characteristics:
+
+- White/silver hair with cyan tips.
+- Cyan/turquoise eyes.
+- Cat ears.
+- Black oversized hoodie with the cyan emblem.
+- Glowing cyan energy orb.
+- Friendly but futuristic assistant personality.
+
+Do not replace the character with a human portrait, a robot head, a generic circular orb, or an unrelated anime character.
+
+Use the provided image as the character design reference. If an actual local 3D asset already exists, inspect and reuse it if suitable.
+
+IMPORTANT: a 2D illustration is not itself a fully rigged 3D model. Do not pretend the image alone is a 3D mesh. If the project does not include a usable 3D asset, determine the most reliable implementable option and report the missing asset requirement accurately.
+
+If a genuine 3D asset is available, implement the character using a suitable supported rendering path compatible with the existing application architecture. Inspect existing dependencies before adding a renderer.
+
+If no real 3D mesh is available, use the supplied character illustration as an image-based avatar temporarily and implement the surrounding layout and state-driven effects. Clearly label true 3D model integration as incomplete until a real model asset is loaded and rendered.
+
+Do not use a fake animated image and claim it is a fully interactive 3D avatar.
+
+==================================================
+2. EXISTING PROJECT MUST BE PRESERVED
+
+Inspect the uploaded source ZIP and actual current source files before changing anything.
+
+Identify:
+
+- Application ID and namespace.
+- Gradle plugins and wrapper.
+- Kotlin and Android Gradle Plugin versions.
+- Compile SDK, target SDK and minimum SDK.
+- Existing architecture and navigation.
+- Jetpack Compose screens and theme.
+- API provider manager.
+- Foreground background service.
+- Speech recognition and text-to-speech code.
+- Wake-word implementation, if any.
+- Voice Match implementation, if any.
+- Accessibility service.
+- Notification listener.
+- Tool registry, executor and verification.
+- Existing task history, memory and persistence.
+- Current manifest permissions and service declarations.
+- Current model IDs and endpoint paths.
+- Existing 3D/WebView/animation dependencies and assets.
+
+Previously discussed candidate files include:
+
+- "ai/AiProviderManager.kt"
+- "service/JarvisBackgroundService.kt"
+- "service/JarvisAccessibilityService.kt"
+- "service/JarvisNotificationListenerService.kt"
+- "voice/VoiceManager.kt"
+- "voice/TtsManager.kt"
+- "voice/VoiceMatchManager.kt"
+- "tools/ToolExecutor.kt"
+- "tools/ToolRegistry.kt"
+- "tools/VerificationEngine.kt"
+- "ui/screens/SetupScreen.kt"
+- "ui/screens/SettingsScreen.kt"
+- "AndroidManifest.xml"
+- Gradle configuration files
+
+These are historical path references. Verify the actual paths in the uploaded project and adapt the implementation accordingly.
+
+Preserve working functionality. Avoid wholesale architecture replacement unless required by a demonstrated technical problem.
+
+If a project file is unavailable, state that limitation and request or identify the exact missing file. Do not claim to have edited or inspected code that was not provided.
+
+If only an APK is supplied, distinguish APK-level inspection from source-code editing. Do not claim to have reconstructed original Kotlin source perfectly.
+
+==================================================
+3. CURRENT GEMINI MODEL AND API MIGRATION
+
+A previous version of this project used an older Gemini configuration, including the model ID "gemini-2.5-flash" and a "generateContent"-style endpoint. Confirm this by inspecting the current source; do not assume all files still use that configuration.
+
+I want the Gemini integration updated to current, officially supported models and API interfaces.
+
+At implementation time, inspect Google's current official model list and API documentation:
+
+- https://ai.google.dev/gemini-api/docs/models
+- https://ai.google.dev/gemini-api/docs/interactions-overview
+- https://ai.google.dev/gemini-api/docs
+- https://ai.google.dev/api
+
+The current documented model candidates at the time this prompt was prepared include:
+
+- "gemini-4-argon"
+- "gemini-3.8-flash"
+
+The intended default candidate for ordinary JARVIS chat, planning and tool-oriented workflows is "gemini-3.8-flash", subject to actual API availability, project access, quota, and successful generation testing.
+
+Expose "gemini-4-argon" as an optional advanced model only when it is supported by the selected API path and can actually be accessed with the user's current configuration.
+
+Do not assume that a model's appearance in documentation guarantees access for every API key, account, region, or pricing tier.
+
+Do not invent a model ID such as "Gemini 3.8 Plus".
+
+Do not blindly hardcode a newer model merely because it appears in a previous answer. Verify current official identifiers at implementation time.
+
+API migration requirements
+
+Google's current documentation recommends the Interactions API for new integrations. Inspect whether the existing Gemini code uses the older "generateContent" interface.
+
+Where suitable, migrate to the currently recommended Interactions API and a compatible current SDK or REST implementation.
+
+Use the supported stable API version where available and appropriate. Check the current official API reference rather than assuming an endpoint or schema.
+
+The older API may be retained as a clearly identified compatibility adapter only if there is a justified need. Do not silently switch protocols or APIs after a failure.
+
+Migration must cover the full request/response pipeline:
+
+1. Provider configuration.
+2. Endpoint and API version.
+3. Authentication.
+4. Request payload.
+5. Model identifier.
+6. Conversation history and multi-turn context.
+7. Streaming or complete-response handling, according to the current application requirements.
+8. Structured output and tool-call compatibility.
+9. Error parsing.
+10. Cancellation, timeout and retry.
+11. Usage/quota handling.
+12. UI status and diagnostic reporting.
+
+If a new model requires a different response schema or request format, implement the appropriate adapter instead of reusing the old JSON parser.
+
+Do not just replace "gemini-2.5-flash" with a new string while leaving incompatible request or response logic unchanged.
+
+Model settings and migration safety
+
+Implement or improve:
+
+- Current model selector.
+- A sensible verified default.
+- Model ID display.
+- Model/API compatibility validation.
+- A real "Test Connection" action.
+- A clear last successful test timestamp.
+- Clear API error reporting.
+- Safe handling of old saved provider settings.
+- An explicit migration path for a saved legacy model.
+
+Do not delete all legacy settings before verifying the new configuration.
+
+The old model must no longer be the hardcoded default when a newer, verified supported default is available. However, remove a model entirely from the selectable list only after checking the current official lifecycle/status and actual compatibility.
+
+A model that still exists but is limited by quota or account eligibility must not be misrepresented as universally discontinued.
+
+Never silently change to another model or provider when the selected model fails. Report the failure and ask the user to select a working model or explicitly enable an allowed fallback.
+
+==================================================
+4. GEMINI HTTP 404 AND API RESPONSE BUG FIXES
+
+Diagnose the actual request and actual response. A 404 alone does not prove the API key is wrong.
+
+Check:
+
+- Incorrect model ID.
+- Unsupported model/API combination.
+- Wrong endpoint path or API version.
+- Wrong HTTP method.
+- Invalid request JSON.
+- Incorrect authentication.
+- API project/key access.
+- Missing network permission.
+- Network/DNS/TLS errors.
+- Quota and rate limits.
+- Malformed or empty response.
+- Incorrect response-field parsing.
+- Cancellation and timeout.
+- Retry behavior and duplicate requests.
+
+Use a typed result model equivalent to:
+
+- Success
+- AuthenticationError
+- ModelOrEndpointError
+- QuotaOrRateLimitError
+- NetworkError
+- TimeoutError
+- MalformedResponseError
+- EmptyResponseError
+- ProviderServerError
+- Cancelled
+
+Fit these results into the current architecture rather than creating duplicate systems.
+
+Use the official API's documented authentication mechanism. Where the selected endpoint supports an API-key header, prefer it to unnecessarily exposing the key in a URL.
+
+Never log the key, print it in a diagnostic screen, or include it in a crash report.
+
+The connection test must make a real generation request and validate a non-empty usable result.
+
+Distinguish:
+
+- Key saved.
+- Configuration validated.
+- Network reachable.
+- Authentication accepted.
+- Model reachable.
+- Generation succeeded.
+
+These are not interchangeable states.
+
+Implement bounded retries with backoff only for suitable transient errors. Do not endlessly retry invalid keys, unavailable models, quota exhaustion, or malformed requests.
+
+Avoid duplicate submissions. Ensure loading state resets after both success and failure.
+
+==================================================
+5. API KEY AND PROVIDER SETTINGS
+
+The application currently requires user-provided credentials.
+
+Support the providers that are actually implemented and compatible with the existing architecture:
+
+- Google Gemini / Google AI Studio
+- OpenAI API
+- DeepSeek
+- OpenRouter
+- Custom OpenAI-compatible endpoint
+- Additional providers only if their protocol is verified and implemented
+
+Each provider must retain its own model, endpoint, key, and protocol settings.
+
+Do not assume that all providers use the same endpoint or response schema.
+
+Implement:
+
+- Masked API key fields.
+- Per-provider configuration.
+- Per-provider model selection.
+- Valid endpoint validation.
+- Save settings.
+- Test Connection.
+- Real error messages.
+- Last successful test state.
+- Clear/reset configuration.
+- Safe migration of existing configuration.
+
+Do not hardcode credentials into Kotlin, Gradle files, assets, or resources.
+
+A user-provided API key stored inside a distributed Android app cannot be guaranteed completely secret. Explain this limitation, use suitable local protection where supported, and never log the credential.
+
+Do not send user credentials to unrelated services.
+
+==================================================
+6. BACKGROUND SERVICE AND REAL JARVIS ON/OFF
+
+The existing app has reported background operation failures.
+
+Inspect and repair the actual implementation of:
+
+- Foreground service.
+- Microphone permission.
+- Foreground-service type.
+- Persistent notification.
+- Voice engine initialization.
+- Wake-word engine.
+- State synchronization.
+- Service shutdown.
+- Process death.
+- Battery optimization guidance.
+- Audio focus and TTS.
+- Android version restrictions.
+
+Use current official documentation for the actual Android version and target SDK:
+
+https://developer.android.com/develop/background-work/services/foreground-services
+
+Do not blindly preserve an inappropriate service type or change it without analyzing the implementation and platform requirements.
+
+Required states may include:
+
+"OFF", "STARTING", "ACTIVE", "LISTENING", "PROCESSING", "EXECUTING", "SPEAKING", "PAUSED", "STOPPING", "ERROR".
+
+Use the existing state management if it already provides equivalent behavior.
+
+The dashboard, service, notification and preferences must agree on the actual state.
+
+Do not restore a stale "LISTENING" status after restart without checking whether the actual voice engine is running.
+
+When JARVIS is turned ON:
+
+1. Verify required permissions and access.
+2. Start the service through an Android-compliant path.
+3. Display the correct foreground notification.
+4. Initialize the actual microphone/recognition/wake-word component.
+5. Report readiness only when initialization succeeds.
+6. Surface a real failure reason if initialization fails.
+
+When JARVIS is turned OFF:
+
+1. Stop actual audio capture and wake-word loops.
+2. Cancel related jobs.
+3. Release microphone/audio resources.
+4. Stop appropriate processing.
+5. Synchronize the UI and notification.
+6. Confirm the stopped state.
+
+Do not claim that Home, YouTube, incoming calls, device lock, force-stop or every OEM battery manager can be handled identically. Test and document actual platform restrictions.
+
+Do not bypass Android microphone permissions or use hidden recording.
+
+==================================================
+7. WAKE WORD, VOICE MATCH, AND BENGALI SPEECH
+
+Inspect the existing voice components.
+
+Wake Word
+
+Determine whether a real wake-word engine exists.
+
+If it does, test initialization, detection, audio lifecycle, CPU/battery cost, and error recovery.
+
+If it does not, do not simulate one with a button or animation. Use "Tap to Talk" as a clearly labelled fallback unless a suitable, supported wake-word engine can be integrated.
+
+Show "Wake Word: Active" only after real engine initialization.
+
+Voice Match
+
+Inspect actual verification implementation.
+
+If it relies only on volume/RMS thresholds, label it as a heuristic rather than secure speaker biometrics.
+
+Do not ignore verification results.
+
+When strict mode is enabled, failed verification must block protected actions. Android device authentication must remain in place for sensitive operations.
+
+Bengali voice
+
+- Bengali is the default UI/assistant response language.
+- English technical labels remain visible where useful.
+- Persist the selected language.
+- Check whether the installed Android TTS engine supports Bengali.
+- Report unavailable language voices honestly.
+- Provide text fallback if TTS fails.
+- Prevent feedback loops where JARVIS recognizes its own speech.
+
+Test real voice interaction, OFF commands, language persistence, media conflicts, and failed recognition.
+
+==================================================
+8. PERMISSION CARDS AND SETTINGS CORRECTION
+
+Preserve all 15 required cards in both Setup and Settings.
+
+Ten permission cards:
+
+1. Microphone
+2. Notifications
+3. Camera
+4. Phone calls
+5. Contacts
+6. SMS
+7. Location
+8. Gallery & files
+9. Answer & manage calls
+10. Bluetooth
+
+Five background/advanced cards:
+
+1. Battery — No optimisation
+2. Display over other apps
+3. Notification access
+4. Accessibility service
+5. Default assistant
+
+A previously reported bug showed "Allow" even after the user granted access.
+
+Fix it with a centralized platform-backed status checker.
+
+- Use actual runtime permission checks.
+- Check special settings via the corresponding Android APIs.
+- Check the Default Assistant role rather than storing a fake boolean.
+- Check the actual Notification Access and Accessibility states.
+- Use Android-version-specific media/file permission logic.
+- Refresh when returning from system settings.
+- Refresh when the relevant screen resumes.
+- Do not equate opening Settings with granting permission.
+- Do not mark all cards granted by default.
+- Do not make unrelated features unavailable merely because an optional permission is missing.
+
+"Allow All" must guide the user through the actual permission flow. It must not claim it can grant every Android special access silently.
+
+==================================================
+9. ACTUAL ANDROID TOOLS, ACCESSIBILITY, AND VERIFICATION
+
+Inspect the existing tool registry, executor, task planner and verification engine.
+
+Implement only real, supported Android operations, including relevant tools that already exist in the project:
+
+- Open an installed app.
+- Open a website.
+- Read accessible UI text.
+- Find a visible text element.
+- Click a valid accessibility node.
+- Scroll.
+- Type into a suitable editable target.
+- Back/Home where supported.
+- Authorized notification reading.
+- Supported media and volume controls.
+- Authorized screen capture and context extraction.
+
+Permission and risk checks must happen before actions.
+
+Do not bypass authentication, CAPTCHA, payment confirmation, system security restrictions, consent screens, or another app's protected access.
+
+Before reporting a task as successful, verify its actual result where possible.
+
+For an action that cannot be verified, report that the action was requested or dispatched but the final outcome was not fully verified.
+
+Use bounded retries and avoid repeating sensitive or non-idempotent actions without checking the previous result.
+
+Handle missing accessibility nodes and inaccessible apps honestly.
+
+==================================================
+10. THE 21 FEATURE CATEGORIES MUST BE PRESERVED
+
+Retain the full feature plan represented in Reference Image 1. Audit the existing project against all 21 categories and preserve existing working functionality.
+
+The categories represented in the reference are:
+
+1. Home Screen & 3D Character.
+2. Theme & Appearance Settings.
+3. Voice Assistant & Audio.
+4. AI Chat & Conversation.
+5. Search & Memory.
+6. Settings & Intelligence.
+7. Phone & App Automation.
+8. Screen Understanding & Visual Assistance.
+9. WhatsApp & Auto Reply.
+10. YouTube & Media.
+11. Minecraft & Game Coach.
+12. Smart Task Planner.
+13. Anti-Theft & Device Security.
+14. Premium Lock & Permissions.
+15. Weather & Location.
+16. Background Service & Permissions.
+17. Audio, Sound & Headset.
+18. Custom 3D / Web Screens & Assets.
+19. Social / Community & Navigation.
+20. Android Project & Technical.
+21. Diagnostics, Testing & Future Features.
+
+Preserve and audit all categories, but do not claim every feature already works. Prioritize API reliability, background service, permission correctness, and real task execution first.
+
+Features such as WhatsApp auto-reply, call management, anti-theft, app locking, screen capture, and game control may require special permissions, roles, user consent, separate APIs or additional implementation. Audit feasibility individually and comply with Android policies.
+
+Do not produce fake buttons for unavailable capabilities. Incomplete features must be marked as not implemented, partial, or blocked.
+
+==================================================
+11. REQUIRED SCREENS
+
+Implement the existing project's UI using Reference Image 1, not a generic chat-app template.
+
+Screen A — JARVIS Home
+
+- Selected character/avatar.
+- Normal/expanded character mode.
+- JARVIS ON/OFF.
+- Tap to Talk when available.
+- Bengali greeting.
+- Live status for Service, Mic, Wake Word, AI Model and current task.
+- Latest command and execution result.
+- Clear error and recovery actions.
+- Existing Home/Chat/Voice/Settings/Update navigation where already present.
+
+Screen B — Full Screen Character
+
+- Same character design.
+- Full-screen presentation within the existing navigation architecture where practical.
+- Correct back/close behavior.
+- Retained assistant state and current conversation.
+- State-driven voice/character animation.
+- No claim of true 3D unless an actual 3D asset and renderer are present.
+
+Screen C — AI Provider & Model Settings
+
+- Gemini as the primary default provider where appropriate.
+- Current model selection and validation.
+- Optional advanced model where actually supported.
+- API key input with masking.
+- Endpoint/protocol settings where applicable.
+- Test Connection.
+- Actual HTTP and generation status.
+- Safe diagnostics and retry.
+- Provider-specific settings persistence.
+
+Screen D — Theme & Appearance
+
+- Light/Dark.
+- Blue-cyan accent as the default visual identity.
+- Other accent colors.
+- Character display mode.
+- Character size.
+- Background customization.
+- Animation intensity or disable controls.
+- Persistence of appearance settings.
+
+Screen E — Permissions
+
+All 10 permission cards with true OS status.
+
+Screen F — Background & Diagnostics
+
+All 5 background/advanced cards, current service state, audio/wake-word state, last failure, last command, last tool, and verification result.
+
+Keep the UI responsive and readable on smaller Android phones. Avoid excessive shader effects or unnecessary animation that cause performance or battery problems.
+
+==================================================
+12. INTERRUPTION AND TASK RESUMPTION
+
+The app should preserve task context if the user switches apps, taps a notification, receives a call, or an Android interruption occurs.
+
+Inspect the current task/state implementation and add persistent task checkpoints only if needed.
+
+When interruption occurs:
+
+- Record the current task and last confirmed action.
+- Pause or cancel operations that should not continue.
+- Keep the service state truthful.
+- Resume only when the task is safe to resume and the required permissions remain available.
+- Revalidate the prior outcome before repeating an action.
+- Stop when the user asks JARVIS to stop or turn OFF.
+- Show a clear explanation when automatic resumption is not possible.
+
+Do not claim every task can automatically resume. Recovery must account for Android restrictions, app lifecycle, stale UI nodes, and non-idempotent actions.
+
+==================================================
+13. TESTING AND BUILD VERIFICATION
+
+Make real code changes and run the checks available in the actual workspace.
+
+Required work:
+
+1. Inspect and record the current baseline.
+2. Produce a file-by-file change plan.
+3. Fix current Gemini API integration.
+4. Test model selection and actual generation.
+5. Fix service and voice lifecycle.
+6. Fix permission status refresh.
+7. Fix tool execution verification.
+8. Integrate the selected UI and character asset path.
+9. Run the available compilation and unit/integration tests.
+10. Build an APK if the environment permits.
+
+Test API cases:
+
+- Valid key and supported model.
+- Invalid key.
+- Unsupported model.
+- Wrong endpoint.
+- No network.
+- Timeout.
+- Rate limit/quota.
+- Empty response.
+- Malformed JSON.
+- Provider switch.
+- Configuration persistence.
+
+Test Android cases where possible:
+
+- ON/OFF.
+- Home/app switching.
+- Permission revocation.
+- Settings round-trip.
+- Wake-word initialization failure.
+- Voice recognition and Bengali TTS.
+- Accessibility disabled.
+- Task execution and verification.
+- Service interruption and recovery.
+- App restart.
+- Character screen expand/close.
+- UI performance on a real or emulated device.
+
+Never invent test output, build logs, or APK paths.
+
+Report each test using:
+
+- PASS — actually tested successfully.
+- FAIL — tested and failed.
+- BLOCKED — could not be tested due to a documented blocker.
+- NOT RUN — not attempted.
+- PARTIAL — implementation exists but verification is incomplete.
+
+A successful compile does not prove background voice functionality or real task automation.
+
+==================================================
+14. REQUIRED OUTPUTS
+
+Deliver these outputs:
+
+1. Existing project audit, with actual paths and observed evidence.
+2. Root-cause report for each confirmed bug.
+3. File-by-file change plan.
+4. Actual modified source project or a complete patch.
+5. Exact new and changed files.
+6. Updated Gemini provider/model/API implementation.
+7. Updated UI and avatar integration.
+8. Updated permissions and background lifecycle.
+9. Unit/integration test results.
+10. Actual APK build report and verified path, if generated.
+11. Final checklist of fixed, partially implemented, blocked and untested features.
+
+Do not stop after producing a plan if source files are available and implementation is supported by the environment.
+
+If the environment cannot modify files directly, provide complete replacement files or a precise patch with paths. Do not merely give generic instructions.
+
+If a dependency cannot be downloaded or a build cannot run because of network restrictions, explain the blocker and proceed with the changes that can be completed.
+
+Do not claim that an APK exists unless it was actually produced and its path verified.
+
+Do not claim that a feature is working unless it has been implemented and appropriately verified.
+
+Begin by analyzing the uploaded source and both attached reference images. Preserve the requested visual identity and all 21 feature categories. Fix the current AI API and background service issues before spending effort on cosmetic details. Then implement the reference-based UI and perform the available build and testing steps.

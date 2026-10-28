@@ -330,6 +330,56 @@ fun DiagnosticsScreen(
                     }
 
                     item {
+                        Card(
+                            colors = CardDefaults.cardColors(containerColor = NavySurface),
+                            border = BorderStroke(1.dp, accentColor)
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(14.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        "GitHub Repository & Update Hub",
+                                        color = accentColor,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Text(
+                                        text = "mj3933899-code/Jarvis-OS-AI-",
+                                        color = TextWhite,
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                    Text(
+                                        text = "Export ZIP, generate APK/AAB, or push directly to GitHub via the AI Studio Settings menu.",
+                                        color = TextMuted,
+                                        fontSize = 11.sp
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(8.dp))
+                                OutlinedButton(
+                                    onClick = {
+                                        try {
+                                            val intent = android.content.Intent(
+                                                android.content.Intent.ACTION_VIEW,
+                                                android.net.Uri.parse("https://github.com/mj3933899-code/Jarvis-OS-AI-")
+                                            ).apply { addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK) }
+                                            context.startActivity(intent)
+                                        } catch (_: Exception) {}
+                                    },
+                                    border = BorderStroke(1.dp, accentColor),
+                                    modifier = Modifier.testTag("open_github_repo_button")
+                                ) {
+                                    Text("Open Repo", color = accentColor, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                        }
+                    }
+
+                    item {
                         VerificationTripleBanner()
                     }
 

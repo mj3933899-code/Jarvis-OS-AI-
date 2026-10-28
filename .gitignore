@@ -1,0 +1,46 @@
+# ============================================================================
+# JARVIS Android Project — GitHub .gitignore
+# ============================================================================
+
+# Gradle & Build Outputs (Do NOT upload to GitHub)
+.gradle/
+.kotlin/
+build/
+app/build/
+.build-outputs/
+
+# Local configuration & Secrets (NEVER commit real API keys or local paths)
+local.properties
+.env
+*.env.local
+
+# Keystores (Keep debug.keystore.base64 for CI decoding, ignore raw binary keystores)
+*.jks
+*.keystore
+!debug.keystore.base64
+
+# Android Studio / IntelliJ IDEA / VS Code files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# OS-specific temporary files
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.bak
+*.tmp
+*.log
+
+# Keep Gradle Wrapper files in Git so GitHub Actions can run ./gradlew
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+!gradlew
+!gradlew.bat

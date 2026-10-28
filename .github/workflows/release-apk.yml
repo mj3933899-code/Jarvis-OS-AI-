@@ -1,0 +1,159 @@
+name: Build & Publish Release APK
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release version tag (e.g. v1.0.0)"
+        required: true
+        default: "v1.0.0"
+        type: string
+      release_title:
+        description: "Release title"
+        required: false
+        default: "JARVIS Android AI Assistant Release"
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build Release & Debug APKs
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: 1. Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: 2. Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: 3. Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: 4. Accept Android SDK Licenses
+        run: |
+          yes | sdkmanager --licenses > /dev/null || true
+
+      - name: 5. Set up Gradle 9.3.1 & Cache
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.3.1"
+          cache-read-only: false
+
+      - name: 6. Prepare Signing Keystore (GitHub Secrets or Project Keystore)
+        env:
+          SECRET_KEYSTORE_B64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$SECRET_KEYSTORE_B64" ]; then
+            echo "Decoding custom signing keystore from GitHub Secret KEYSTORE_BASE64..."
+            echo "$SECRET_KEYSTORE_B64" | tr -d '\n\r ' | base64 -d > debug.keystore
+          elif [ -f "debug.keystore.base64" ]; then
+            echo "Decoding project debug.keystore.base64..."
+            tr -d '\n\r ' < debug.keystore.base64 | base64 -d > debug.keystore
+          elif [ ! -f "debug.keystore" ]; then
+            echo "Generating fallback Android signing keystore via keytool..."
+            keytool -genkeypair -v \
+              -keystore debug.keystore \
+              -storepass android \
+              -alias androiddebugkey \
+              -keypass android \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Android Debug,O=Android,C=US"
+          fi
+          ls -lh debug.keystore
+
+      - name: 7. Build Release & Debug APKs with Gradle
+        run: |
+          if [ -f "./gradlew" ] && [ -f "gradle/wrapper/gradle-wrapper.jar" ]; then
+            chmod +x ./gradlew
+            ./gradlew :app:assembleRelease :app:assembleDebug --stacktrace --no-daemon
+          else
+            gradle :app:assembleRelease :app:assembleDebug --stacktrace --no-daemon
+          fi
+
+      - name: 8. Locate and Rename APKs
+        id: package_apks
+        run: |
+          # Locate Release APK
+          EXPECTED_RELEASE="app/build/outputs/apk/release/app-release.apk"
+          if [ -f "$EXPECTED_RELEASE" ]; then
+            FOUND_RELEASE="$EXPECTED_RELEASE"
+          else
+            FOUND_RELEASE=$(find app/build/outputs/apk/release -maxdepth 3 -type f -name "*.apk" | head -n 1)
+          fi
+
+          if [ -z "$FOUND_RELEASE" ] || [ ! -f "$FOUND_RELEASE" ]; then
+            echo "::error::Release APK was not found in app/build/outputs/apk/release/"
+            exit 1
+          fi
+          cp "$FOUND_RELEASE" "JARVIS-release.apk"
+
+          # Locate Debug APK
+          EXPECTED_DEBUG="app/build/outputs/apk/debug/app-debug.apk"
+          if [ -f "$EXPECTED_DEBUG" ]; then
+            FOUND_DEBUG="$EXPECTED_DEBUG"
+          else
+            FOUND_DEBUG=$(find app/build/outputs/apk/debug -maxdepth 3 -type f -name "*.apk" | head -n 1)
+          fi
+
+          if [ -n "$FOUND_DEBUG" ] && [ -f "$FOUND_DEBUG" ]; then
+            cp "$FOUND_DEBUG" "JARVIS-debug.apk"
+          fi
+
+          REL_SIZE=$(du -h "JARVIS-release.apk" | cut -f1)
+          REL_SHA=$(sha256sum "JARVIS-release.apk" | awk '{print $1}')
+          echo "release_size=$REL_SIZE" >> "$GITHUB_OUTPUT"
+          echo "release_sha=$REL_SHA" >> "$GITHUB_OUTPUT"
+
+          TAG_NAME="${{ github.event.inputs.release_tag }}"
+          if [ -z "$TAG_NAME" ]; then
+            TAG_NAME="${GITHUB_REF#refs/tags/}"
+          fi
+          echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: 9. Upload Release & Debug APKs to GitHub Actions Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: JARVIS-release-and-debug-apks
+          path: |
+            JARVIS-release.apk
+            JARVIS-debug.apk
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: 10. Create GitHub Release with Direct APK Downloads
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.package_apks.outputs.tag_name }}
+          name: "${{ github.event.inputs.release_title || 'JARVIS Android AI Assistant' }} (${{ steps.package_apks.outputs.tag_name }})"
+          body: |
+            ## 🚀 JARVIS — Android AI Assistant (${{ steps.package_apks.outputs.tag_name }})
+
+            ### 📲 Direct Phone APK Download
+            Tap either APK file under **Assets** below to download and install directly on your Android phone:
+            1. **`JARVIS-release.apk`** — Signed Release APK (`${{ steps.package_apks.outputs.release_size }}`, SHA-256: `${{ steps.package_apks.outputs.release_sha }}`)
+            2. **`JARVIS-debug.apk`** — Debug APK for testing and diagnostics
+
+            ### ✨ Key Specifications
+            - **Package / Application ID**: `com.aistudio.jarvisai.kxmpzq`
+            - **Android Compatibility**: Android 7.0 (API 24) to Android 15 (API 35)
+            - **Default Gemini Model**: `gemini-3.8-flash` (Advanced: `gemini-4-argon`)
+          draft: false
+          prerelease: false
+          files: |
+            JARVIS-release.apk
+            JARVIS-debug.apk
+          overwrite: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
